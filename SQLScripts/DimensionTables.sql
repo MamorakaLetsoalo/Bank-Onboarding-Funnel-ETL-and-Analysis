@@ -41,3 +41,20 @@ CREATE TABLE dbo.dim_date (
     year INT,
     week INT
 );
+
+--dim location
+CREATE TABLE dbo.dim_location (
+    location_id INT IDENTITY(1,1) PRIMARY KEY,
+    country VARCHAR(50),
+    province VARCHAR(50),
+    city VARCHAR(50),
+    urban_rural_flag VARCHAR(10)
+);
+
+--dim device
+CREATE TABLE dbo.dim_device (
+    device_id INT IDENTITY(1,1) PRIMARY KEY,
+    device_type VARCHAR(50),
+    os VARCHAR(50),
+    network_type VARCHAR(20)
+);
