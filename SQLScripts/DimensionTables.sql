@@ -16,3 +16,10 @@ CREATE TABLE dbo.dim_customer (
     expiry_date DATETIME,
     is_current BIT DEFAULT 1
 );
+
+--dim channel
+CREATE TABLE dbo.dim_channel (
+    channel_id INT IDENTITY(1,1) PRIMARY KEY,
+    channel_name VARCHAR(50),
+    channel_type VARCHAR(20)
+);
