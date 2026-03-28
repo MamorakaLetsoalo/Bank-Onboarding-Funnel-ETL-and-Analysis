@@ -46,3 +46,10 @@ SELECT DISTINCT channel INTO dim_channel FROM staging.stg_onboarding_dedup;
 
 --dim Step
 SELECT DISTINCT step_name, step_sequence INTO dim_step FROM staging.stg_onboarding_dedup;
+
+--data quality check
+SELECT 
+    COUNT(*) AS total_records,
+    COUNT(DISTINCT customer_id) AS unique_customers,
+    SUM(CASE WHEN customer_id IS NULL THEN 1 ELSE 0 END) AS null_customers
+FROM staging.stg_onboarding_events;
