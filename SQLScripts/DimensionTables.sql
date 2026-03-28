@@ -58,3 +58,79 @@ CREATE TABLE dbo.dim_device (
     os VARCHAR(50),
     network_type VARCHAR(20)
 );
+
+-- Load Dimension tables
+
+--load dim channel
+INSERT INTO dbo.dim_channel (channel_name, channel_type)
+SELECT DISTINCT
+    channel,
+    CASE 
+        WHEN channel IN ('USSD','Mobile App','Web') THEN 'Digital'
+        ELSE 'Physical'
+    END
+FROM Banking_Staging.staging.stg_onboarding_events;
+
+--Load dim step
+INSERT INTO dbo.dim_step (step_name, step_order, is_mandatory_flag)
+SELECT DISTINCT
+    step_name,
+    step_sequence,
+    1
+FROM Banking_Staging.staging.stg_onboarding_events;
+
+--load dim location
+INSERT INTO dbo.dim_location (country, province, city, urban_rural_flag)
+SELECT DISTINCT
+    'South Africa',
+    'KwaZulu-Natal',
+    location,
+    'Urban'
+FROM Banking_Staging.staging.stg_onboarding_events;
+
+--load dim device
+INSERT INTO dbo.dim_device (device_type, os, network_type)
+SELECT DISTINCT
+    device_type,
+    'Android',
+    '4G'
+FROM Banking_Staging.staging.stg_onboarding_events;
+
+--load dim date
+INSERT INTO dbo.dim_date (date_id, full_date, day, month, year, week)
+SELECT 
+    t.date_id,
+    t.full_date,
+    t.day,
+    t.month,
+    t.year,
+    t.week
+FROM (
+    SELECT DISTINCT
+        CONVERT(INT, CONVERT(VARCHAR(8), event_timestamp, 112)) AS date_id,
+        CAST(event_timestamp AS DATE) AS full_date,
+        DAY(event_timestamp) AS day,
+        MONTH(event_timestamp) AS month,
+        YEAR(event_timestamp) AS year,
+        DATEPART(WEEK, event_timestamp) AS week
+    FROM Banking_Staging.staging.stg_onboarding_events
+) t
+WHERE NOT EXISTS (
+    SELECT 1 FROM dbo.dim_date d WHERE d.date_id = t.date_id
+);
+
+-- load dim customer
+INSERT INTO dbo.dim_customer (
+    customer_identifier,
+    is_unbanked_flag,
+    kyc_level
+)
+SELECT DISTINCT
+    customer_id,
+    1,              -- assume unbanked initially
+    'LOW'
+FROM Banking_Staging.staging.stg_onboarding_events;
+
+
+
+
