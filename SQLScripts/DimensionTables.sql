@@ -23,3 +23,11 @@ CREATE TABLE dbo.dim_channel (
     channel_name VARCHAR(50),
     channel_type VARCHAR(20)
 );
+
+--dim step
+CREATE TABLE dbo.dim_step (
+    step_id INT IDENTITY(1,1) PRIMARY KEY,
+    step_name VARCHAR(100),
+    step_order INT,
+    is_mandatory_flag BIT
+);
