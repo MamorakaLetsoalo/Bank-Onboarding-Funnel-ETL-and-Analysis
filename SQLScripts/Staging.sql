@@ -39,3 +39,10 @@ SELECT *
 INTO staging.stg_onboarding_dedup
 FROM ranked_events
 WHERE rn = 1;
+
+-- map dimensions
+--dim  Channel
+SELECT DISTINCT channel INTO dim_channel FROM staging.stg_onboarding_dedup;
+
+--dim Step
+SELECT DISTINCT step_name, step_sequence INTO dim_step FROM staging.stg_onboarding_dedup;
