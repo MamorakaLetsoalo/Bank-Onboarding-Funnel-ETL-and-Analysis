@@ -65,3 +65,13 @@ CREATE TABLE staging.stg_onboarding_events (
     device_type VARCHAR(50),
     location VARCHAR(100)
 );
+
+USE Banking_Raw;
+ALTER TABLE raw.raw_onboarding_events
+ALTER COLUMN event_timestamp DATETIME2;
+
+ALTER TABLE raw.raw_onboarding_events
+ALTER COLUMN ingestion_timestamp DATETIME2;
+
+
+
