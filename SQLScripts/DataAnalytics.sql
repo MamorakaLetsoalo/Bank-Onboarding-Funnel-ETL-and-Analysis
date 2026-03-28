@@ -45,3 +45,17 @@ JOIN dbo.dim_step s ON f.step_id = s.step_id
 
 GROUP BY s.step_order, s.step_name;
 
+GO
+
+--Time and behaivour view
+CREATE VIEW dbo.vw_onboarding_behavior AS
+SELECT
+    s.step_name,
+    AVG(time_spent_seconds) AS avg_time_spent,
+    MIN(time_spent_seconds) AS min_time,
+    MAX(time_spent_seconds) AS max_time,
+
+    COUNT(*) AS total_records
+FROM dbo.fact_onboarding_funnel f
+JOIN dbo.dim_step s ON f.step_id = s.step_id
+GROUP BY s.step_name;
