@@ -31,3 +31,13 @@ CREATE TABLE dbo.dim_step (
     step_order INT,
     is_mandatory_flag BIT
 );
+
+--dim date
+CREATE TABLE dbo.dim_date (
+    date_id INT PRIMARY KEY,   
+    full_date DATE,
+    day INT,
+    month INT,
+    year INT,
+    week INT
+);
