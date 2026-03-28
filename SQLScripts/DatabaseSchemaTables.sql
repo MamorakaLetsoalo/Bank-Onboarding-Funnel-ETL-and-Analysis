@@ -45,3 +45,23 @@ CREATE TABLE raw.raw_onboarding_events (
     ingestion_timestamp DATETIME,
     source_system VARCHAR(50)
 );
+
+--Create staging table
+USE Banking_Staging;
+
+CREATE TABLE staging.stg_onboarding_events (
+    event_id INT,
+    event_timestamp DATETIME,
+    
+    customer_id VARCHAR(50),
+    
+    step_name VARCHAR(100),
+    step_sequence INT,
+    
+    is_success BIT,
+    is_failure BIT,
+    
+    channel VARCHAR(50),
+    device_type VARCHAR(50),
+    location VARCHAR(100)
+);
