@@ -112,6 +112,12 @@ Power BI Dashboard
 - Channel performance analysis
 - Time-based insights
 
+<img width="1133" height="641" alt="image" src="https://github.com/user-attachments/assets/5f6a1a0a-51d8-493f-b766-cdd37acf8ad4" />
+
+<img width="1136" height="640" alt="image" src="https://github.com/user-attachments/assets/838d7899-8525-4a49-8390-b78e4048be0e" />
+
+
+
 ---
 
 ## 📌 Key KPIs
